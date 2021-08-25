@@ -2,7 +2,6 @@ package com.bl.birdsantuary;
 
 import java.util.Objects;
 
-// view layer
 abstract public class Bird {
 	
 	enum color{
@@ -35,8 +34,8 @@ abstract public class Bird {
 		return Objects.equals(id, other.id);
 	}
 	
-	abstract public void fly();
-	abstract public void swim();
+	
+	
 	abstract public void eat();
 	
 }

@@ -1,6 +1,9 @@
 package com.bl.birdsantuary;
 
+import java.util.EnumSet;
 import java.util.Scanner;
+
+import com.bl.birdsantuary.Bird.color;
 
 //control layer
 public class Main {
@@ -44,9 +47,10 @@ public class Main {
 		final int EXIT_VALUE = 10;
 		while(option != EXIT_VALUE) {
 			System.out.println("Enter your options");
-			System.out.println("\n1. add \n2. remove \n3. print birds \n4. print swimable"
-					+ "\n5. flyable \n6. eatable \n"+EXIT_VALUE+". EXIT\n");
+			System.out.println("1. add \n2. remove \n3. print birds \n4. print swimable"
+					+ "\n5. print flyable \n6. print eatable \n7. edit bird \n"+EXIT_VALUE+". EXIT");
 			option = scan.nextInt();
+			ViewLayer viewLayer = new ViewLayer();
 			
 			switch (option) {
 				case 1:	
@@ -71,7 +75,7 @@ public class Main {
 					birdSantuaryRepository.add(parrot2);
 					break;
 				case 2:
-					System.out.println("enter the bird name which you want to remove\n");
+					System.out.println("enter the bird name which you want to remove");
 					String birdname = scan.nextLine();
 					birdname = scan.next();
 					birdSantuaryRepository = BirdSantuaryRepository.getInstance();
@@ -79,21 +83,65 @@ public class Main {
 					birdSantuaryRepository.remove(removeBird);
 					break;
 				case 3:
-					ViewLayer viewLayer = new ViewLayer();
 					viewLayer.print();
 					break;
 				case 4:
-					viewLayer = new ViewLayer();
-					viewLayer.printSwinable();
+					viewLayer.printSwimmable();
 					break;
 				case 5:
-					viewLayer = new ViewLayer();
 					viewLayer.printFlyable();
 					break;
 				case 6:
-					viewLayer = new ViewLayer();
 					viewLayer.printEatable();
 					break;
+				case 7:
+					editBird();
+					break;
+			}
+		}
+	}
+
+	private void editBird() {
+		System.out.println("Enter the bird name which you want to edit");
+		Scanner scan = new Scanner(System.in);
+		String editName = scan.next();
+		
+		Bird editBird = BirdSantuaryRepository.getInstance().getBird(editName);
+		
+		int choice = 0;
+		while(choice != 4) {
+			System.out.println("Enter your editing choice");
+			System.out.println("1. Edit bird name \n2. Edit id \n3. Edit color \n4. exit");
+			choice = scan.nextInt();
+			switch (choice) {
+			case 1: 
+				System.out.println("Enter new name");
+				String newName = scan.next();
+				editBird.name = newName;
+				break;
+			case 2:
+				System.out.println("Enter new ID");
+				String newId = scan.next();
+				editBird.id = newId ;
+				break;
+			case 3:
+				System.out.println("Enter new color");
+				int count = 0;
+				for (Bird.color color: EnumSet.allOf(Bird.color.class)) {
+					System.out.println(count + "." + color);
+					count++;
+				}
+				int colorchoice = scan.nextInt();
+				int count1 = 0;
+				for (Bird.color color: EnumSet.allOf(Bird.color.class)) {
+					if(colorchoice == count1) {
+						editBird.color = color;
+						break;
+					}
+					count1++;
+				}
+				break;
+			
 			}
 		}
 	}

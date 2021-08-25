@@ -1,6 +1,6 @@
 package com.bl.birdsantuary;
 
-public class Peacock extends Bird{
+public class Peacock extends Bird implements Flyable {
 	Peacock(){
 		color = color.BLUR_GREEN;
 		name = "peacock";
@@ -8,12 +8,7 @@ public class Peacock extends Bird{
 
 	@Override
 	public void fly() {
-		
-	}
-
-	@Override
-	public void swim() {
-		
+		System.out.println(name+ " partially fly");
 	}
 
 	@Override

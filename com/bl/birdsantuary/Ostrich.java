@@ -7,16 +7,6 @@ public class Ostrich extends Bird {
 	}
 
 	@Override
-	public void fly() {
-		
-	}
-
-	@Override
-	public void swim() {
-		
-	}
-
-	@Override
 	public void eat() {
 		System.out.println(name+ " can eat");
 	}

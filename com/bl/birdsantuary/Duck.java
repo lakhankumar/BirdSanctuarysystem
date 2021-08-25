@@ -1,6 +1,6 @@
 package com.bl.birdsantuary;
 
-public class Duck extends Bird {
+public class Duck extends Bird implements Flyable, Swimmable {
 	Duck() {
 		color = color.WHITE;
 		name = "duck";
