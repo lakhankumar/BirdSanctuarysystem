@@ -13,10 +13,8 @@ public class ViewLayer {
 	public void printFlyable() {
 		BirdSantuaryRepository birdSantuaryRepository = BirdSantuaryRepository.getInstance();
 		for (Bird item:birdSantuaryRepository.getAllBird()) {
-			if(item instanceof Flyable) {
-//				((Flyable) item).fly();   shortcut for type cast similar to below 2 steps
-				Flyable flyable = (Flyable) item;
-				flyable.fly();
+			if(item.canFly) {
+				item.fly();
 			}
 		}
 	}
@@ -24,8 +22,8 @@ public class ViewLayer {
 	public void printSwimmable() {
 		BirdSantuaryRepository birdSantuaryRepository = BirdSantuaryRepository.getInstance();
 		for (Bird item:birdSantuaryRepository.getAllBird()) {	
-			if(item instanceof Swimmable) {
-				((Swimmable) item).swim();
+			if(item.canSwim) {
+				item.swim();
 			}
 			
 		}

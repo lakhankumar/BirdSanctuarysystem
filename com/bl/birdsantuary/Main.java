@@ -3,7 +3,7 @@ package com.bl.birdsantuary;
 import java.util.EnumSet;
 import java.util.Scanner;
 
-import com.bl.birdsantuary.Bird.color;
+import com.bl.birdsantuary.Bird.Color;
 
 //control layer
 public class Main {
@@ -12,33 +12,6 @@ public class Main {
 		Main main = new Main();
 		main.userMenu();
 		System.out.println("GOOD BYE!!");
-	/*	Duck duck = new Duck();
-		duck.id = "Duck-001";
-		Peacock peacock = new Peacock();
-		peacock.id = "peacock-001";
-		Ostrich ostrich = new Ostrich();
-		ostrich.id = "ostrich-001";
-		Parrot parrot = new Parrot();
-		parrot.id = "parrot-001";
-		Parrot parrot2 = new Parrot();
-		parrot2.id = "parrot-002";
-		
-		BirdSantuaryRepository birdSantuaryRepository = new BirdSantuaryRepository();
-		
-		birdSantuaryRepository.add(duck);
-		birdSantuaryRepository.add(ostrich);
-		birdSantuaryRepository.add(peacock);
-		birdSantuaryRepository.add(parrot);
-		birdSantuaryRepository.add(parrot);
-		birdSantuaryRepository.add(parrot2);
-		System.out.println("after addition");
-		
-		birdSantuaryRepository.print();
-		
-		birdSantuaryRepository.remove(peacock);
-		System.out.println("after deletion");
-		
-		birdSantuaryRepository.print();*/
 	}
 	
 	void userMenu() {
@@ -54,33 +27,11 @@ public class Main {
 			
 			switch (option) {
 				case 1:	
-					Duck duck = new Duck();
-					duck.id = "Duck-001";
-					Peacock peacock = new Peacock();
-					peacock.id = "peacock-001";
-					Ostrich ostrich = new Ostrich();
-					ostrich.id = "ostrich-001";
-					Parrot parrot = new Parrot();
-					parrot.id = "parrot-001";
-					Parrot parrot2 = new Parrot();
-					parrot2.id = "parrot-002";
-					
-					BirdSantuaryRepository birdSantuaryRepository = BirdSantuaryRepository.getInstance();
-					
-					birdSantuaryRepository.add(duck);
-					birdSantuaryRepository.add(ostrich);
-					birdSantuaryRepository.add(peacock);
-					birdSantuaryRepository.add(parrot);
-					birdSantuaryRepository.add(parrot);
-					birdSantuaryRepository.add(parrot2);
+					addTempBird();
+					addBird();
 					break;
 				case 2:
-					System.out.println("enter the bird name which you want to remove");
-					String birdname = scan.nextLine();
-					birdname = scan.next();
-					birdSantuaryRepository = BirdSantuaryRepository.getInstance();
-					Bird removeBird = birdSantuaryRepository.getBird(birdname);
-					birdSantuaryRepository.remove(removeBird);
+					removeBird();
 					break;
 				case 3:
 					viewLayer.print();
@@ -100,7 +51,75 @@ public class Main {
 			}
 		}
 	}
+	
+	private void removeBird() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("enter the bird name which you want to remove");
+		String birdname = scan.nextLine();
+		birdname = scan.next();
+		BirdSantuaryRepository birdSantuaryRepository = BirdSantuaryRepository.getInstance();
+		Bird removeBird = birdSantuaryRepository.getBird(birdname);
+		birdSantuaryRepository.remove(removeBird);
+	}
 
+	private void addTempBird() {
+		
+		Bird duck = new Bird();
+		duck.id = "D-001";
+		duck.name = "duck";
+		duck.color = Bird.Color.WHITE;
+		duck.canFly = false;
+		duck.canSwim = true;
+		
+		BirdSantuaryRepository.getInstance().add(duck);
+		
+		Bird penguin = new Bird();
+		
+		penguin.id = "pg-001";
+		penguin.name = "penguin";
+		penguin.color = Bird.Color.WHITE;
+		penguin.canFly = false;
+		penguin.canSwim = true;
+
+		BirdSantuaryRepository.getInstance().add(penguin);
+	}
+	
+	private void addBird(){
+		Scanner scan = new Scanner(System.in);
+		Bird bird = new Bird();
+		System.out.println("Enter bird id");
+		String id = scan.next();
+		bird.id = id;
+		System.out.println("Enter bird color");
+		int count = 0;
+		for (Bird.Color color: EnumSet.allOf(Bird.Color.class)) {
+			System.out.println(count + "." + color);
+			count++;
+		}
+		int colorchoice = scan.nextInt();
+		int count1 = 0;
+		for (Bird.Color color: EnumSet.allOf(Bird.Color.class)) {
+			if(colorchoice == count1) {
+				bird.color = color;
+				break;
+			}
+			count1++;
+		}
+		System.out.println("enter Bird name");
+		String name = scan.next();
+		bird.name = name;
+		System.out.println("can bird fly?");
+		boolean canFly = scan.nextBoolean();
+		bird.canFly = canFly;
+		System.out.println("can bird swim?");
+		boolean canSwim = scan.nextBoolean();
+		bird.canSwim = canSwim;
+		
+		BirdSantuaryRepository birdSantuaryRepository = BirdSantuaryRepository.getInstance();
+		
+		birdSantuaryRepository.add(bird);
+	}
+	
 	private void editBird() {
 		System.out.println("Enter the bird name which you want to edit");
 		Scanner scan = new Scanner(System.in);
@@ -127,13 +146,13 @@ public class Main {
 			case 3:
 				System.out.println("Enter new color");
 				int count = 0;
-				for (Bird.color color: EnumSet.allOf(Bird.color.class)) {
+				for (Bird.Color color: EnumSet.allOf(Bird.Color.class)) {
 					System.out.println(count + "." + color);
 					count++;
 				}
 				int colorchoice = scan.nextInt();
 				int count1 = 0;
-				for (Bird.color color: EnumSet.allOf(Bird.color.class)) {
+				for (Bird.Color color: EnumSet.allOf(Bird.Color.class)) {
 					if(colorchoice == count1) {
 						editBird.color = color;
 						break;
